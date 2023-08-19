@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Course and Lessons</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      form {
+        /* max-width: 600px; */
+        margin: 0 auto;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input[type='text'],
+      textarea,
+      input[type='file'] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      input[type='submit'],
+      button {
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #3e8e41;
+      }
+      .lesson-fields {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-bottom: 20px;
+        position: relative;
+      }
+      .remove-lesson-btn {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        background-color: #f44336;
+        padding: 5px 10px;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .remove-lesson-btn:hover {
+        background-color: #da190b;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="background-color: rgb(244, 244, 244)"
+      class="container mt-4 p-4 border"
+    >
+      <h1 style="text-align: center">Add Course Details</h1>
+      {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <form id="my-form" method="post" action="{% url 'courses:add-course' %}">
+        {% csrf_token %}
+        <label for="name">Course Name:</label>
+        <input type="text" name="name" id="name" required /><br /><br />
+        <label for="description">Course Description:</label>
+        <textarea name="description" id="description" required></textarea
+        ><br /><br />
+        <h1>Add Lessons</h1>
+        <div id="lesson-fields-container">
+          <div class="lesson-fields" id="lesson-1">
+            <label for="lesson-name-1">Lesson 1 Name:</label>
+            <input
+              type="text"
+              id="lesson-name-1"
+              name="lesson-name-1"
+              required
+            />
+            <label for="lesson-description-1">Lesson 1 Description:</label>
+            <textarea
+              id="lesson-description-1"
+              name="lesson-description-1"
+              required
+            ></textarea>
+            <label for="lesson-file-1">Lesson 1 File:</label>
+            <input
+              type="file"
+              id="lesson-file-1"
+              name="lesson-file-1"
+              required
+            />
+            <button class="remove-lesson-btn" data-lesson-id="1" type="button">
+              Remove
+            </button>
+          </div>
+        </div>
+        <button id="add-lesson-btn" type="button">Add Lesson</button>
+        <input type="hidden" value="2" id="lesson-count" name="lesson-count" />
+        <input type="submit" value="Add Course" />
+      </form>
+    </div>
+  </body>
+  <script>
+    const addLessonBtn = document.getElementById('add-lesson-btn');
+    const lessonForm = document.getElementById('lesson-fields-container');
+    let lessonCount = 2;
+    const form = document.getElementById('my-form');
+
+    form.addEventListener('submit', function (event) {
+      if (lessonCount <= 1) {
+        alert('Please add atleast one lesson.');
+        event.preventDefault();
+      }
+    });
+
+    function addNewLesson() {
+      const lessonFields = `
+        <div class="lesson-fields" id="lesson-${lessonCount}">
+          <label for="lesson-name-${lessonCount}">Lesson ${lessonCount} Name:</label>
+          <input type="text" name="lesson-name-${lessonCount}" id="lesson-name-${lessonCount}" required>
+
+          <label for="lesson-description-${lessonCount}">Lesson ${lessonCount} Description:</label>
+          <textarea name="lesson-description-${lessonCount}" id="lesson-description-${lessonCount}" required></textarea>
+          
+          <label for="lesson-file-${lessonCount}">Lesson ${lessonCount} File:</label>
+          <input type="file" id="lesson-file-${lessonCount}" name="lesson-file-${lessonCount}" required/>
+
+          <button class="remove-lesson-btn" data-lesson-id="${lessonCount}" type="button">Remove</button>
+        </div>
+      `;
+      lessonForm.insertAdjacentHTML('beforeend', lessonFields);
+      lessonCount++;
+      document.getElementById('lesson-count').value = lessonCount;
+      console.log('count  ', document.getElementById('lesson-count').value);
+      // Attach click event listener to new remove lesson button
+      const removeLessonBtns = document.querySelectorAll('.remove-lesson-btn');
+      removeLessonBtns.forEach((btn) => {
+        btn.addEventListener('click', removeLesson);
+      });
+    }
+
+    function removeLesson(event) {
+      const lessonId = event.target.getAttribute('data-lesson-id');
+      const lessonEl = document.getElementById(`lesson-${lessonId}`);
+      lessonEl.remove();
+
+      // Update lesson count
+      lessonCount--;
+      document.getElementById('lesson-count').value = lessonCount;
+
+      // Update lesson numbers/names
+      const lessonEls = document.querySelectorAll('.lesson-fields');
+      lessonEls.forEach((el, index) => {
+        const lessonNum = index + 1;
+        const lessonNameLabel = el.querySelector(
+          `label[for="lesson-name-${lessonNum}"]`
+        );
+        const lessonNameInput = el.querySelector(
+          `input[name="lesson-name-${lessonNum}"]`
+        );
+        const lessonDescLabel = el.querySelector(
+          `label[for="lesson-description-${lessonNum}"]`
+        );
+        const lessonDescTextarea = el.querySelector(
+          `textarea[name="lesson-description-${lessonNum}"]`
+        );
+
+        lessonNameLabel.innerText = `Lesson ${lessonNum} Name:`;
+        lessonNameInput.setAttribute('name', `lesson-name-${lessonNum}`);
+        lessonNameInput.setAttribute('id', `lesson-name-${lessonNum}`);
+        lessonDescLabel.innerText = `Lesson ${lessonNum} Description:`;
+        lessonDescTextarea.setAttribute(
+          'name',
+          `lesson-description-${lessonNum}`
+        );
+        lessonDescTextarea.setAttribute(
+          'id',
+          `lesson-description-${lessonNum}`
+        );
+      });
+    }
+
+    addLessonBtn.addEventListener('click', addNewLesson);
+
+    // Attach click event listener to existing remove lesson buttons
+    const removeLessonBtns = document.querySelectorAll('.remove-lesson-btn');
+    removeLessonBtns.forEach((btn) => {
+      btn.addEventListener('click', removeLesson);
+    });
+  </script>
+</html>

@@ -1,0 +1,70 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{% static 'base/css/courses.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="shortcut icon"
+      href="{%static 'base/images/web_logo.png' %}"
+      type="image/x-icon"
+    />
+    <title>Courses</title>
+  </head>
+  <body>
+    <div class="container">
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+          >&times;</a
+        >
+        <a href="/">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+      </div>
+
+      {% if user.teacher %}
+      <a href="{% url 'courses:add-course' %}" class="btn">Add Course</a>
+      {% endif %}
+      <button onclick="openNav()" class="nav_btn">&#9776;</button>
+      <h2>{% if user.student %}Enrolled{% else %}Owned{% endif %} Courses</h2>
+      <hr />
+
+      <div class="card_container">
+        {% if user.student %} {% if courses %} {% for enrolled in courses %}
+        <div class="card">{{ enrolled }}</div>
+        {% endfor %} {% else %}
+        <p>No courses enrolled yet.</p>
+        {% endif %} {% else %} {% if courses %} {% for course in courses %}
+        <a
+          style="text-decoration: none"
+          href="{% url 'courses:course' pk=course.pk %}"
+        >
+          <div class="card">
+            {{ course.name }}
+            <p>{{course.description}}</p>
+          </div>
+        </a>
+        {% endfor %} {% else %}
+        <p>No courses owned yet.</p>
+        {% endif %} {% endif %}
+      </div>
+    </div>
+  </body>
+  <script>
+    function openNav() {
+      document.getElementById('mySidenav').style.width = '250px';
+    }
+
+    function closeNav() {
+      document.getElementById('mySidenav').style.width = '0';
+    }
+  </script>
+</html>

@@ -1,0 +1,39 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role</title>
+    <link rel="shortcut icon" href="{%static 'base/images/web_logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'base/css/user_role.css' %}" type="text/css">
+    
+</head>
+<body>
+    <h2>Choose your Role ?</h2>
+    <div class="container">
+        <a href="{% url 'accounts:signup-teacher'%}" class="card"  data-tilt data-tilt-glare data-tilt-max="10" data-tilt-max-glare="0.5">
+            <div class="elements">
+                <i class="fa-solid fa-person-chalkboard"></i>
+                <h5>Teacher</h5>
+            </div>
+        </a>
+        <a href="{% url 'accounts:signup-student'%}" class="card"  data-tilt data-tilt-glare data-tilt-max="10" data-tilt-max-glare="0.5">
+            <div class="elements">
+                <i class="fa-solid fa-user-graduate" ></i>
+                <h5>Student</h5>
+            </div>
+        </a>
+        <a href="" class="card"  data-tilt data-tilt-glare data-tilt-max="10" data-tilt-max-glare="0.5">
+            <div class="elements">
+                <i class="fa-solid fa-user-tie"></i>
+                <h5>Parent</h5>
+            </div>
+        </a>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js" integrity="sha512-RX/OFugt/bkgwRQg4B22KYE79dQhwaPp2IZaA/YyU3GMo/qY7GrXkiG6Dvvwnds6/DefCfwPTgCXnaC6nAgVYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="vanilla-tilt.js"></script>
+</html>

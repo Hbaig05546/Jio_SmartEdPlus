@@ -1,0 +1,251 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="shortcut icon"
+      href="{%static 'base/images/web_logo.png' %}"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'base/css/home.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'base/css/bootstrap.min.css' %}"
+      type="text/css"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+  </head>
+
+  <body>
+    <nav>
+      <a
+        href="{% url 'base:home'%}"
+        style="
+          float: left;
+          font-family: 'Roboto Condensed';
+          font-size: 1.5vw;
+          margin-left: 1vw;
+          background-image: linear-gradient(to right, #00bfff, #0074ff);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          padding-top: 0.7%;
+        "
+        >SmartEd+</a
+      >
+
+      <a href="" class="hover-underline-animation">Home</a>
+
+      <a href="" class="hover-underline-animation">About us</a>
+
+      <a href="" class="hover-underline-animation">FAQ's</a>
+
+      <a href="{% url 'courses:all'%}" class="hover-underline-animation"
+        >Courses</a
+      >
+
+      <a href="" class="hover-underline-animation">Games</a>
+
+      <a href="#" class="hover-underline-animation"> About Us</a>
+
+      {% if not user.is_authenticated %}
+      <a href="{% url 'accounts:user_role'%}" class="register">Register Now</a>
+
+      <a href="{% url 'accounts:login'%}" class="register">Login</a>
+      {% else %}
+      <a href="{% url 'accounts:logout'%}" class="register">Logout</a>
+      {% endif %}
+    </nav>
+
+    <div class="customcard">
+      <div class="overlap">
+        <div class="quote">
+          Unlock your learning potential with our <b>fun</b> and
+          <b>rewarding</b> educational platform!
+          <br />
+          <p style="font-family: Catamaran; font-size: 1.3vw">
+            <!-- SmartEd+ is an online education platform that offers a unique approach to learning by incorporating gamification and reward systems to encourage 
+          students to achieve their academic goals.
+          Our platform is designed to create an engaging and interactive learning experience that empowers students to take control of their education. -->
+
+            We recognize that each student has unique learning needs and
+            interests. Our platform offers a personalized learning experience
+            that adapts to the individual needs of each student. We offer a
+            range of courses and topics that students can choose from, and our
+            platform uses data analytics to recommend courses that align with
+            their interests and learning style.
+          </p>
+          <a class="start" href=""> View Courses </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="about">
+      <div class="info">
+        <h2>About <b>SmartEd+</b></h2>
+        <p>
+          SmartEd+ is an online education platform that offers a unique approach
+          to learning by incorporating gamification and reward systems to
+          encourage students to achieve their academic goals. Our platform is
+          designed to create an engaging and interactive learning experience
+          that empowers students to take control of their education.
+        </p>
+
+        <button class="join">Join Now</button>
+      </div>
+      <img src="{%static 'base/images/web_logo.png' %}" alt="" />
+    </div>
+
+    <div class="work">
+      <h2>What <b>SmartEd+</b> provides you?</h2>
+      <div class="f_container">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-gamepad"></i>
+              <h2>Gamification</h2>
+            </div>
+            <div class="flip-card-back">
+              <p>
+                Our platform is designed to incorporate elements of gamification
+                to make learning more fun and engaging. We use game mechanics
+                such as points, badges, levels, and leaderboards to motivate
+                students to complete their coursework and achieve their academic
+                goals. By using these strategies, we hope to create a sense of
+                excitement and satisfaction around learning.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-medal"></i>
+              <h2>Rewards</h2>
+            </div>
+            <div class="flip-card-back">
+              <p>
+                We believe in rewarding students for their hard work and
+                dedication to their education. Our platform offers various
+                rewards such as virtual badges, certificates, and prizes to
+                motivate students to continue learning and achieving their
+                goals. Students can earn these rewards by completing
+                assignments, participating in discussions, and achieving
+                milestones.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <h2>Personalized Learning</h2>
+            </div>
+            <div class="flip-card-back">
+              <p>
+                We recognize that each student has unique learning needs and
+                interests. Our platform offers a personalized learning
+                experience that adapts to the individual needs of each student.
+                We offer a range of courses and topics that students can choose
+                from, and our platform uses data analytics to recommend courses
+                that align with their interests and learning style.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test">
+      <img src="{%static 'base/images/test.jpg' %}" alt="" />
+      <p>Confused in Choosing Career?</p>
+      <h2>Find your path with help of us</h2>
+      <p>
+        Our website offers a comprehensive career guidance test designed to help
+        individuals explore their interests, strengths, and career preferences.
+        The test is designed to provide personalized insights nd recommendations
+        that align with the individual's unique needs and aspirations. Our
+        platform uses advanced algorithms and data analytics to analyze the
+        responses and generate a customize report that outlines the most
+        suitable career paths and job opportunities based on the individual's
+        skills and interests. With our career guidance test, individuals can
+        gain clarity and direction in their career path, and make informed
+        decisions about their future..
+      </p>
+      <button class="test_button">
+        <i class="fa-solid fa-square-up-right"></i> Take the assestment now
+      </button>
+    </div>
+
+    <div class="footer">
+      <div class="li_card">
+        <ul>
+          <li><a href="#" class="link">Scorecard</a></li>
+          <li><a href="#" class="link">Refer a Friend</a></li>
+          <li><a href="#" class="link">Certificates</a></li>
+        </ul>
+      </div>
+      <div class="li_card">
+        <li><a href="#" class="link">Courses</a></li>
+        <li><a href="#" class="link">Games</a></li>
+        <li><a href="#" class="link">Top Games</a></li>
+      </div>
+      <div class="li_card">
+        <li><a href="#" class="link">Assignments</a></li>
+        <li><a href="#" class="link">Terms</a></li>
+        <li><a href="#" class="link">Privacy Policy</a></li>
+        <li><a href="#" class="link">FAQs and Contact</a></li>
+      </div>
+      <div class="li_card">
+        <img
+          src="{%static 'base/images/web_logo.png' %}"
+          alt=""
+          class="flogo"
+        />
+        <ul class="socialmedia">
+          <li>
+            <a href="" class="link"
+              ><i class="fa-brands fa-square-instagram"></i
+            ></a>
+            <a href="" class="link"
+              ><i class="fa-brands fa-square-facebook"></i
+            ></a>
+            <a href="" class="link"
+              ><i class="fa-brands fa-square-twitter"></i
+            ></a>
+            <a href="" class="link"
+              ><i class="fa-brands fa-square-youtube"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script
+    type="text/javascript"
+    src="{% static 'base/js/bootstrap.min.js'%}"
+  ></script>
+</html>
